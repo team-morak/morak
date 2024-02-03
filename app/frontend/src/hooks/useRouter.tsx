@@ -12,6 +12,7 @@ import {
   ProfilePage,
   NotFound,
   GroupCreatePage,
+  GroupJoinPage,
 } from '@/pages';
 
 export const useRouter = () =>
@@ -54,6 +55,10 @@ export const useRouter = () =>
         {
           path: 'group/new',
           element: <GroupCreatePage />,
+        },
+        {
+          path: 'group/join',
+          element: <GroupJoinPage />,
         },
       ],
     },
