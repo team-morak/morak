@@ -14,7 +14,7 @@ type GroupProps = {
   joined: boolean;
   owned?: boolean;
 };
-export function Group({ id, name, closed, joined, owned = true }: GroupProps) {
+export function Group({ id, name, closed, joined, owned = false }: GroupProps) {
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
