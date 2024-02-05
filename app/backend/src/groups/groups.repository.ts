@@ -17,6 +17,14 @@ export class GroupsRepository {
     });
   }
 
+  private async getGroupAccessCode(groupId: number): Promise<string> {
+    const groupAccessCode = await this.prisma.groupAccessCode.findFirst({
+      where: { groupId },
+    });
+
+    return groupAccessCode.accessCode;
+  }
+
   async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
     const groups = await this.prisma.group.findMany();
 
@@ -170,7 +178,7 @@ export class GroupsRepository {
     });
   }
 
-  async getMyGroups(member: Member): Promise<(Group & { membersCount: number })[]> {
+  async getMyGroups(member: Member): Promise<(Group & { membersCount: number; accessCode: string })[]> {
     const groupToUsers = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       include: {
@@ -180,7 +188,8 @@ export class GroupsRepository {
 
     const groupsWithMembersCount = groupToUsers.map(async (groupToUser) => {
       const membersCount = await this.getGroupMembersCount(Number(groupToUser.groupId));
-      return { ...groupToUser.group, membersCount };
+      const accessCode = await this.getGroupAccessCode(Number(groupToUser.groupId));
+      return { ...groupToUser.group, membersCount, accessCode };
     });
 
     return Promise.all(groupsWithMembersCount);
