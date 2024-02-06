@@ -12,15 +12,15 @@ export const group = {
   },
 
   all: async () => {
-    const { data } = await morakAPI.get<ResponseGroupsDto[]>(
-      group.endPoint.default,
-    );
+    const { data } = await morakAPI.get<
+      (ResponseGroupsDto & { membersCount: number })[]
+    >(group.endPoint.default);
     return data;
   },
   myGroup: async () => {
-    const { data } = await morakAPI.get<ResponseGroupsDto[]>(
-      `${group.endPoint.default}/my-groups`,
-    );
+    const { data } = await morakAPI.get<
+      (ResponseGroupsDto & { membersCount: number; accessCode: string })[]
+    >(`${group.endPoint.default}/my-groups`);
     return data;
   },
   groupDetail: async (id: string) => {
