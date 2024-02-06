@@ -23,9 +23,16 @@ export function GroupJoinPage() {
   const accessCode = new URLSearchParams(useLocation().search).get(
     'access_code',
   );
-  const { isLoading, data: group } = useQuery(
-    queryKeys.group.findByCode(accessCode!),
-  );
+  const {
+    data: myGroup,
+    isLoading: isMyGroupLoading,
+    isSuccess: isMyGroupSuccess,
+  } = useQuery(queryKeys.group.myGroup());
+  const {
+    data: group,
+    isLoading: isGroupLoading,
+    isSuccess: isGroupSuccess,
+  } = useQuery(queryKeys.group.findByCode(accessCode!));
 
   const goBack = () => navigate(-1);
 
@@ -37,7 +44,7 @@ export function GroupJoinPage() {
     openJoinModal({ onClickConfirm: () => handleJoin(group.id) });
   };
 
-  if (isLoading) {
+  if (isMyGroupLoading || isGroupLoading) {
     return (
       <div className={styles.container}>
         <Loading />
@@ -45,34 +52,33 @@ export function GroupJoinPage() {
     );
   }
 
+  if (!isMyGroupSuccess || !isGroupSuccess || !group) {
+    return (
+      <div className={styles.container}>
+        <Error message="유효하지 않은 초대 코드입니다." />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
-      {group ? (
-        <>
-          <h2 className={sansBold36}>그룹 참여</h2>
-          <div className={styles.group}>
-            <div className={styles.groupTitle}>
-              <span>{group.title}</span>
-              {group.groupTypeId === 1 && (
-                <Lock width={24} height={24} fill={grayscale200} />
-              )}
-            </div>
-            <span className={styles.participants}>
-              <People width={24} height={24} fill={grayscale200} />
-              {group.membersCount}
-            </span>
-          </div>
-          <div className={styles.form}>
-            {group.groupTypeId === 1 ? (
-              <div className={styles.closedText}>
-                <div>그룹에 가입 신청할까요?</div>
-                <div className={styles.subText}>
-                  비공개 그룹은 그룹장의 승인 후 참여 처리됩니다.
-                </div>
-              </div>
-            ) : (
-              '이 그룹에 참여할까요?'
-            )}
+      <h2 className={sansBold36}>그룹 참여</h2>
+      <div className={styles.group}>
+        <div className={styles.groupTitle}>
+          <span>{group.title}</span>
+          {group.groupTypeId === 1 && (
+            <Lock width={24} height={24} fill={grayscale200} />
+          )}
+        </div>
+        <span className={styles.participants}>
+          <People width={24} height={24} fill={grayscale200} />
+          {group.membersCount}
+        </span>
+      </div>
+      <div className={styles.form}>
+        {myGroup.find((item) => item.id === group.id) ? (
+          <>
+            <div>이미 참여한 그룹입니다.</div>
             <div className={styles.buttons}>
               <Button
                 theme="primary"
@@ -80,7 +86,32 @@ export function GroupJoinPage() {
                 size="large"
                 onClick={goBack}
               >
-                취소
+                돌아가기
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.closedText}>
+              {group.groupTypeId === 1 ? (
+                <>
+                  <div>그룹에 가입 신청할까요?</div>
+                  <div className={styles.subText}>
+                    비공개 그룹은 그룹장의 승인 후 참여 처리됩니다.
+                  </div>
+                </>
+              ) : (
+                '이 그룹에 참여할까요?'
+              )}
+            </div>
+            <div className={styles.buttons}>
+              <Button
+                theme="primary"
+                shape="line"
+                size="large"
+                onClick={goBack}
+              >
+                돌아가기
               </Button>
               {group.groupTypeId === 1 ? (
                 <Button theme="primary" shape="fill" size="large">
@@ -97,11 +128,9 @@ export function GroupJoinPage() {
                 </Button>
               )}
             </div>
-          </div>
-        </>
-      ) : (
-        <Error message="유효하지 않은 초대 코드입니다." />
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
