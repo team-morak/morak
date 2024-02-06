@@ -33,8 +33,9 @@ export function Groups() {
           groupList?.map((group) => (
             <Group
               key={group.id}
-              name={group.title}
               id={group.id}
+              name={group.title}
+              membersCount={group.membersCount}
               joined={group.id === joinedGroup?.id}
               closed={group.groupTypeId === 1}
             />
