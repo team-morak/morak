@@ -39,4 +39,12 @@ export const group = {
     morakAPI.post<null>(`${group.endPoint.default}/${id}/join`),
   leave: async ({ id }: Pick<ResponseGroupsDto, 'id'>) =>
     morakAPI.delete<null>(`${group.endPoint.default}/${id}/leave`),
+  findByCode: async (accessCode: string) => {
+    const { data } = await morakAPI.get<
+      ResponseGroupsDto & { membersCount: number }
+    >(`${group.endPoint.default}/info`, {
+      params: { access_code: accessCode },
+    });
+    return data;
+  },
 };
