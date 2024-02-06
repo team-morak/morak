@@ -170,14 +170,19 @@ export class GroupsRepository {
     });
   }
 
-  async getMyGroups(member: Member): Promise<Group[]> {
-    const groups = await this.prisma.groupToUser.findMany({
+  async getMyGroups(member: Member): Promise<(Group & { membersCount: number })[]> {
+    const groupToUsers = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       include: {
         group: true,
       },
     });
 
-    return groups.map((groupToUser) => groupToUser.group);
+    const groupsWithMembersCount = groupToUsers.map(async (groupToUser) => {
+      const membersCount = await this.getGroupMembersCount(Number(groupToUser.groupId));
+      return { ...groupToUser.group, membersCount };
+    });
+
+    return Promise.all(groupsWithMembersCount);
   }
 }

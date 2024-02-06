@@ -26,6 +26,17 @@ export class GroupsController {
     return this.groupsService.getAllGroups();
   }
 
+  @Get('/my-groups')
+  @ApiOperation({
+    summary: '가입 그룹 확인',
+    description: '해당 사용자가 가입한 그룹을 확인합니다.',
+  })
+  @ApiResponse({ status: 200, description: 'Successfully Check', type: [GroupsDto] })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async getMyGroups(@GetUser() member: Member): Promise<(Group & { membersCount: number })[]> {
+    return this.groupsService.getMyGroups(member);
+  }
+
   @Get('/info')
   @ApiOperation({
     summary: '승인코드를 사용하여 그룹 정보 추출',
@@ -103,16 +114,5 @@ export class GroupsController {
   @ApiResponse({ status: 404, description: 'Group with id not found' })
   async leaveGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     return this.groupsService.leaveGroup(id, member);
-  }
-
-  @Get('/my-groups')
-  @ApiOperation({
-    summary: '가입 그룹 확인',
-    description: '해당 사용자가 가입한 그룹을 확인합니다.',
-  })
-  @ApiResponse({ status: 200, description: 'Successfully Check', type: [GroupsDto] })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getMyGroups(@GetUser() member: Member): Promise<Group[]> {
-    return this.groupsService.getMyGroups(member);
   }
 }
