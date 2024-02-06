@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { Group, Member } from '@prisma/client';
-import { GroupsDto, GroupsWithMemberCountDto } from './dto/groups.dto';
+import { AccessCodeByGroupsDto, GroupsWithMemberCountDto, MyGroupsDto } from './dto/groups.dto';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
 import { ParticipantResponseDto } from 'src/mogaco-boards/dto/response-participants.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
@@ -31,7 +31,7 @@ export class GroupsController {
     summary: '가입 그룹 확인',
     description: '해당 사용자가 가입한 그룹을 확인합니다.',
   })
-  @ApiResponse({ status: 200, description: 'Successfully Check', type: [GroupsDto] })
+  @ApiResponse({ status: 200, description: 'Successfully Check', type: [MyGroupsDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getMyGroups(@GetUser() member: Member): Promise<(Group & { membersCount: number })[]> {
     return this.groupsService.getMyGroups(member);
@@ -42,8 +42,7 @@ export class GroupsController {
     summary: '승인코드를 사용하여 그룹 정보 추출',
     description: '승인 코드를 사용하여 특정 그룹 정보를 추출합니다.',
   })
-  @ApiQuery({ name: 'access-code', description: '참가할 그룹의 승인 코드' })
-  @ApiResponse({ status: 201, description: 'Successfully retrieved group information' })
+  @ApiResponse({ status: 201, description: 'Successfully retrieved group information', type: [AccessCodeByGroupsDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Group not found for the provided access code' })
   async getGroupByAccessCode(@Query('access_code') accessCode: string): Promise<Group & { membersCount: number }> {
