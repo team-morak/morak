@@ -1,6 +1,6 @@
 <img src='https://github.com/boostcampwm2023/web17_morak/assets/43867711/113814b6-0fc2-4ae0-adce-94238ecc2f6b' />
 
-<p align='center'><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm2023%2Fweb17_morak&count_bg=%231FAB70&title_bg=%23A8AEAC&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a></p>
+<p align='center'><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fteam-morak%2Fmorak&count_bg=%231FAB70&title_bg=%23A8AEAC&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a></p>
 
 <h3 align='center'><a href='https://morak.io/'>https://morak.io</a></h3>
 <p align='center'>
