@@ -12,3 +12,20 @@ export interface ResponseGroupsWithMemberCountDto {
   title: string;
   memberCount: number;
 }
+
+export interface ResponseMyGroupsDto {
+  id: Bigint;
+  title: string;
+  groupOwnerId: Bigint;
+  groupTypeId: number;
+  memberCount: number;
+  accessCode: string;
+}
+
+export interface ResponseAccesCodeByGroupsDto {
+  id: Bigint;
+  title: string;
+  groupOwnerId: Bigint;
+  groupTypeId: number;
+  memberCount: number;
+}
