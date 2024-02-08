@@ -19,6 +19,10 @@ export function MyGroup() {
     ...queryKeys.group.myGroup(),
     staleTime: Infinity,
   });
+  const buttonContents = [
+    { url: '/groups', name: '그룹 참여' },
+    { url: '/group/new', name: '새 그룹 생성' },
+  ];
 
   return (
     <section className={styles.section}>
@@ -47,28 +51,19 @@ export function MyGroup() {
         )}
       </ul>
       <div className={styles.groupButtons}>
-        <NavLink to="/groups" className={styles.groupButton}>
-          <Button
-            type="button"
-            theme="primary"
-            shape="line"
-            size="large"
-            fullWidth
-          >
-            그룹 참여
-          </Button>
-        </NavLink>
-        <NavLink to="/group/new" className={styles.groupButton}>
-          <Button
-            type="button"
-            theme="primary"
-            shape="line"
-            size="large"
-            fullWidth
-          >
-            새 그룹 생성
-          </Button>
-        </NavLink>
+        {buttonContents.map(({ url, name }) => (
+          <NavLink key={url} to={url} className={styles.groupButton}>
+            <Button
+              type="button"
+              theme="primary"
+              shape="line"
+              size="large"
+              fullWidth
+            >
+              {name}
+            </Button>
+          </NavLink>
+        ))}
       </div>
     </section>
   );
