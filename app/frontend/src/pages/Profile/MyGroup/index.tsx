@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
+import { Button } from '@morak/ui';
 import { useQuery } from '@tanstack/react-query';
 
-import { ReactComponent as ArrowLeft } from '@/assets/icons/arrow_left.svg';
 import { Error, Group, LoadingIndicator } from '@/components';
 import { queryKeys } from '@/queries';
 import { vars } from '@/styles';
@@ -19,6 +19,10 @@ export function MyGroup() {
     ...queryKeys.group.myGroup(),
     staleTime: Infinity,
   });
+  const buttonContents = [
+    { url: '/groups', name: '그룹 참여' },
+    { url: '/group/new', name: '새 그룹 생성' },
+  ];
 
   return (
     <section className={styles.section}>
@@ -32,24 +36,35 @@ export function MyGroup() {
           />
         )}
         {isSuccess &&
-          myGroup.length > 0 &&
-          myGroup?.map((group) => (
-            <Group key={group.id} id={group.id} name={group.title} joined />
+          myGroup?.length > 0 &&
+          myGroup.map((group) => (
+            <Group
+              key={group.id}
+              id={group.id}
+              name={group.title}
+              joined
+              closed={group.groupTypeId === 1}
+            />
           ))}
         {isSuccess && myGroup.length === 0 && (
           <Error message="현재 속한 그룹이 없습니다. 그룹에 참여해 주세요." />
         )}
       </ul>
-      <NavLink to="/groups" className={styles.navLinkButton}>
-        <ArrowLeft
-          fill={vars.color.morakGreen}
-          width={24}
-          height={24}
-          className={styles.rotateArrow}
-        />
-        그룹 리스트 보기
-      </NavLink>
-      <div className={styles.groupButtons}>{/* <Button /> */}</div>
+      <div className={styles.groupButtons}>
+        {buttonContents.map(({ url, name }) => (
+          <NavLink key={url} to={url} className={styles.groupButton}>
+            <Button
+              type="button"
+              theme="primary"
+              shape="line"
+              size="large"
+              fullWidth
+            >
+              {name}
+            </Button>
+          </NavLink>
+        ))}
+      </div>
     </section>
   );
 }

@@ -1,6 +1,7 @@
 export * from './Calendar';
 export * from './Groups';
 export * from './Groups/Create';
+export * from './Groups/Join';
 export * from './Main';
 export * from './Map';
 export * from './Mogaco';
