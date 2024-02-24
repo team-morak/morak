@@ -27,6 +27,14 @@ export function Group({
   joined,
   owned = false,
 }: GroupProps) {
+  const onClickCopy = async () => {
+    if (accessCode) {
+      await navigator.clipboard.writeText(
+        `${window.location.origin}/group/join?access_code=${accessCode}`,
+      );
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.titleWrapper}>
@@ -45,7 +53,11 @@ export function Group({
         <div className={styles.code}>
           <span>초대 코드</span>
           <div className={styles.codeString}>{accessCode}</div>
-          <button type="button" className={styles.copyButton}>
+          <button
+            type="button"
+            className={styles.copyButton}
+            onClick={onClickCopy}
+          >
             <Copy width={24} height={24} fill={grayscale200} />
           </button>
         </div>
