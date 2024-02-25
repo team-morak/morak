@@ -79,7 +79,7 @@ export class GroupsController {
     description: '새로운 그룹을 생성합니다.',
   })
   @ApiBody({ type: CreateGroupsDto })
-  @ApiResponse({ status: 201, description: 'Successfully created', type: CreateGroupsDto })
+  @ApiResponse({ status: 201, description: 'Successfully created' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async createGroups(
     @Body() createGroupsDto: CreateGroupsDto,
