@@ -1,9 +1,11 @@
 import { useController, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { RequestGroupsDto } from '@morak/apitype';
 import { TextLabel, Button } from '@morak/ui';
 
-import { FormInput } from '@/components';
+import { FormInput, Modal } from '@/components';
+import { useModal } from '@/hooks';
 import { useLeaveGroupQuery } from '@/queries/hooks/group';
 
 import { GroupTypeRadio } from './GroupTypeRadio';
@@ -32,16 +34,26 @@ export function GroupCreatePage() {
     },
   });
 
-  const { mutate } = useLeaveGroupQuery();
+  const { mutateAsync } = useLeaveGroupQuery();
+
+  const { openModal } = useModal();
+  const navigate = useNavigate();
+  const submitGroup = async (data: RequestGroupsDto) => {
+    const { status } = await mutateAsync(data);
+    // TODO: 에러 처리
+    if (status === 201) {
+      openModal(
+        <Modal
+          title="그룹이 생성되었습니다."
+          buttonType="single"
+          onClickConfirm={() => navigate('/groups')}
+        />,
+      );
+    }
+  };
 
   return (
-    <form
-      className={styles.container}
-      // TODO: POST 요청
-      onSubmit={handleSubmit((data) => {
-        mutate(data);
-      })}
-    >
+    <form className={styles.container} onSubmit={handleSubmit(submitGroup)}>
       <FormInput
         label="그룹명"
         required
