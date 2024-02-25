@@ -30,7 +30,7 @@ export function Footer({
         shape="fill"
         size="large"
         fullWidth
-        onClick={buttonType === 'double' ? confirmModal : closeModal}
+        onClick={confirmModal}
       >
         {confirmButtonText}
       </Button>
