@@ -1,23 +1,23 @@
 import { useController, useForm } from 'react-hook-form';
 
+import { RequestGroupsDto } from '@morak/apitype';
 import { TextLabel, Button } from '@morak/ui';
 
 import { FormInput } from '@/components';
+import { useLeaveGroupQuery } from '@/queries/hooks/group';
 
 import { GroupTypeRadio } from './GroupTypeRadio';
 import * as styles from './index.css';
-import { GroupCreate } from './types';
 
 export function GroupCreatePage() {
   const {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<GroupCreate>({
+  } = useForm<RequestGroupsDto>({
     defaultValues: {
-      name: '',
-      type: 'public',
-      joinType: ['approve'],
+      title: '',
+      groupTypeId: 1,
     },
     mode: 'all',
   });
@@ -25,17 +25,22 @@ export function GroupCreatePage() {
   const {
     field: { value: nameValue, onChange: onChangeName },
   } = useController({
-    name: 'name',
+    name: 'title',
     control,
     rules: {
       required: true,
     },
   });
+
+  const { mutate } = useLeaveGroupQuery();
+
   return (
     <form
       className={styles.container}
       // TODO: POST 요청
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => {
+        mutate(data);
+      })}
     >
       <FormInput
         label="그룹명"
