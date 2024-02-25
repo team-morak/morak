@@ -1,4 +1,8 @@
-import { ResponseGroupsDto, ResponseMemberDto } from '@morak/apitype';
+import {
+  ResponseGroupsDto,
+  ResponseMemberDto,
+  ResponseAccesCodeByGroupsDto,
+} from '@morak/apitype';
 
 import { morakAPI } from './morakAPI';
 
@@ -16,6 +20,12 @@ export const group = {
   myGroup: async () => {
     const { data } = await morakAPI.get<ResponseGroupsDto[]>(
       `${group.endPoint.default}/my-groups`,
+    );
+    return data;
+  },
+  groupDetail: async (id: string) => {
+    const { data } = await morakAPI.get<ResponseAccesCodeByGroupsDto>(
+      `${group.endPoint.default}/${id}`,
     );
     return data;
   },
