@@ -24,7 +24,7 @@ export class GroupsService {
     return this.groupsRepository.getAllMembersOfGroup(id);
   }
 
-  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<{ group: Group; accessCode: string }> {
+  async createGroups(createGroupsDto: CreateGroupsDto, member: Member): Promise<void> {
     return this.groupsRepository.createGroups(createGroupsDto, member);
   }
 
