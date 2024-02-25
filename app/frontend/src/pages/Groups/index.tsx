@@ -37,7 +37,7 @@ export function Groups() {
               name={group.title}
               membersCount={group.membersCount}
               joined={group.id === joinedGroup?.id}
-              closed={group.groupTypeId === 1}
+              closed={group.groupTypeId === 0}
             />
           ))
         )}

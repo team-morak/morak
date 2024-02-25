@@ -45,7 +45,7 @@ export function MyGroup() {
               membersCount={group.membersCount}
               accessCode={group.accessCode}
               joined
-              closed={group.groupTypeId === 1}
+              closed={group.groupTypeId === 0}
             />
           ))}
         {isSuccess && myGroup.length === 0 && (

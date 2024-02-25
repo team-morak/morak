@@ -66,7 +66,7 @@ export function GroupJoinPage() {
       <div className={styles.group}>
         <div className={styles.groupTitle}>
           <span>{group.title}</span>
-          {group.groupTypeId === 1 && (
+          {group.groupTypeId === 0 && (
             <Lock width={24} height={24} fill={grayscale200} />
           )}
         </div>
@@ -93,7 +93,7 @@ export function GroupJoinPage() {
         ) : (
           <>
             <div className={styles.closedText}>
-              {group.groupTypeId === 1 ? (
+              {group.groupTypeId === 0 ? (
                 <>
                   <div>그룹에 가입 신청할까요?</div>
                   <div className={styles.subText}>
@@ -113,7 +113,7 @@ export function GroupJoinPage() {
               >
                 돌아가기
               </Button>
-              {group.groupTypeId === 1 ? (
+              {group.groupTypeId === 0 ? (
                 <Button theme="primary" shape="fill" size="large">
                   가입 신청
                 </Button>
