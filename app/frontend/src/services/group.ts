@@ -1,4 +1,4 @@
-import { ResponseGroupsDto } from '@morak/apitype';
+import { RequestGroupsDto, ResponseGroupsDto } from '@morak/apitype';
 
 import { morakAPI } from './morakAPI';
 
@@ -23,4 +23,6 @@ export const group = {
     morakAPI.post<null>(`${group.endPoint.default}/${id}/join`),
   leave: async ({ id }: Pick<ResponseGroupsDto, 'id'>) =>
     morakAPI.delete<null>(`${group.endPoint.default}/${id}/leave`),
+  create: async (form: RequestGroupsDto) =>
+    morakAPI.post<null>(group.endPoint.default, form),
 };
