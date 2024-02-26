@@ -121,6 +121,7 @@ export class GroupsController {
   @ApiParam({ name: 'memberId', description: '강제로 퇴장시킬 멤버의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully kicked out the member' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Only group owners can kick out members.' })
   @ApiResponse({ status: 404, description: 'Group or member not found' })
   async kickOutMember(
     @Param('id', ParseIntPipe) id: number,
