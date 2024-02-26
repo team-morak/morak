@@ -32,9 +32,9 @@ export class MogacoController {
       return this.mogacoService.getMogacoByDate(date, member);
     } else {
       if (page) {
-        return this.mogacoService.getAllMogaco(member, page);
+        return await this.mogacoService.getAllMogaco(member, page);
       } else {
-        return this.mogacoService.getAllMogaco(member);
+        return await this.mogacoService.getAllMogaco(member);
       }
     }
   }
@@ -47,7 +47,7 @@ export class MogacoController {
   @ApiResponse({ status: 200, description: 'Successfully Check', type: [MogacoDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getMyMogacos(@GetUser() member: Member): Promise<MogacoDto[]> {
-    return this.mogacoService.getMyMogacos(member);
+    return await this.mogacoService.getMyMogacos(member);
   }
 
   @Get('/:id')
@@ -61,7 +61,7 @@ export class MogacoController {
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Mogaco with id not found' })
   async getMogacoById(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<MogacoWithMemberDto> {
-    return this.mogacoService.getMogacoById(id, member);
+    return await this.mogacoService.getMogacoById(id, member);
   }
 
   @Post('/')
@@ -74,7 +74,7 @@ export class MogacoController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Group with id not found' })
   async createMogaco(@Body() createMogacoDto: CreateMogacoDto, @GetUser() member: Member): Promise<Mogaco> {
-    return this.mogacoService.createMogaco(createMogacoDto, member);
+    return await this.mogacoService.createMogaco(createMogacoDto, member);
   }
 
   @Delete('/:id')
@@ -87,7 +87,7 @@ export class MogacoController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   async deleteMogaco(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
-    return this.mogacoService.deleteMogaco(id, member);
+    await this.mogacoService.deleteMogaco(id, member);
   }
 
   @Put('/:id')
@@ -106,7 +106,7 @@ export class MogacoController {
     @Body() updateMogacoDto: CreateMogacoDto,
     @GetUser() member: Member,
   ): Promise<Mogaco> {
-    return this.mogacoService.updateMogaco(id, updateMogacoDto, member);
+    return await this.mogacoService.updateMogaco(id, updateMogacoDto, member);
   }
 
   @Post('/:id/join')
@@ -119,7 +119,7 @@ export class MogacoController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   async joinMogaco(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
-    return this.mogacoService.joinMogaco(id, member);
+    await this.mogacoService.joinMogaco(id, member);
   }
 
   @Get('/:id/participants')
@@ -131,7 +131,7 @@ export class MogacoController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [ParticipantResponseDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getParticipants(@Param('id', ParseIntPipe) id: number): Promise<ParticipantResponseDto[]> {
-    return this.mogacoService.getParticipants(id);
+    return await this.mogacoService.getParticipants(id);
   }
 
   @Delete('/:id/join')
@@ -145,6 +145,6 @@ export class MogacoController {
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Mogaco with id not found' })
   async cancelMogacoJoin(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
-    return this.mogacoService.cancelMogacoJoin(id, member);
+    await this.mogacoService.cancelMogacoJoin(id, member);
   }
 }
