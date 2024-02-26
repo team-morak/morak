@@ -90,7 +90,7 @@ export class MogacoRepository {
     }
 
     // 모각코 진행일(Date)를 넘긴 경우 종료로 변환
-    this.updateCompletedMogacos(mogacos);
+    await this.updateCompletedMogacos(mogacos);
 
     const mappedMogacos = mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
@@ -152,7 +152,7 @@ export class MogacoRepository {
     }
 
     // 모각코 진행일(Date)를 넘긴 경우 종료로 변환
-    this.updateCompletedMogacos(mogacos);
+    await this.updateCompletedMogacos(mogacos);
 
     return mogacos.map((mogaco) => ({
       id: mogaco.id.toString(),
