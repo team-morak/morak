@@ -7,6 +7,7 @@ export class CreateGroupsDto implements RequestGroupsDto {
   @IsNotEmpty()
   title: string;
 
+  @ApiProperty({ description: 'typeId of the Group, 0: 공개, 1: 비공개', example: '0' })
   @IsInt()
   groupTypeId: number;
 }
