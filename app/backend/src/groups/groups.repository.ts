@@ -192,4 +192,32 @@ export class GroupsRepository {
 
     return Promise.all(groupsWithMembersCount);
   }
+
+  private async isGroupOwner(groupId: number, groupOwnerId: number): Promise<boolean> {
+    const group = await this.prisma.group.findUnique({
+      where: { id: groupId },
+    });
+
+    if (!group) {
+      throw new NotFoundException(`Group with id ${groupId} not found.`);
+    }
+
+    return Number(group.groupOwnerId) === groupOwnerId;
+  }
+
+  async kickOutMember(id: number, memberId: number, groupOwner: Member): Promise<void> {
+    const isGroupOwner = await this.isGroupOwner(id, Number(groupOwner.id));
+    if (!isGroupOwner) {
+      throw new ForbiddenException('Only group owners can kick out members.');
+    }
+
+    await this.prisma.groupToUser.delete({
+      where: {
+        groupId_userId: {
+          groupId: id,
+          userId: memberId,
+        },
+      },
+    });
+  }
 }

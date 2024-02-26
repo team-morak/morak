@@ -22,7 +22,7 @@ export interface ResponseMyGroupsDto {
   accessCode: string;
 }
 
-export interface ResponseAccesCodeByGroupsDto {
+export interface ResponseAccessCodeByGroupsDto {
   id: Bigint;
   title: string;
   groupOwnerId: Bigint;
