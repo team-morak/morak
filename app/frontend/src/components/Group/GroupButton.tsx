@@ -39,7 +39,10 @@ export function GroupButton({ id, closed, joined, owned }: GroupButtonProps) {
             theme="danger"
             shape="fill"
             size="medium"
-            onClick={onClickLeave}
+            onClick={(e) => {
+              e.preventDefault();
+              onClickLeave();
+            }}
           >
             나가기
           </Button>
