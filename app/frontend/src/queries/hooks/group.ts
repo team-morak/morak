@@ -8,10 +8,10 @@ export const useCreateGroupQuery = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: string) => group.leave({ id }),
+    mutationFn: (form: RequestGroupsDto) => group.create(form),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.group.myGroup().queryKey,
+        queryKey: queryKeys.group.all().queryKey,
       });
     },
   });
@@ -34,10 +34,10 @@ export const useLeaveGroupQuery = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (form: RequestGroupsDto) => group.create(form),
+    mutationFn: (id: string) => group.leave({ id }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.group.all().queryKey,
+        queryKey: queryKeys.group.myGroup().queryKey,
       });
     },
   });

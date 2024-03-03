@@ -6,7 +6,7 @@ import { TextLabel, Button } from '@morak/ui';
 
 import { FormInput, Modal } from '@/components';
 import { useModal } from '@/hooks';
-import { useLeaveGroupQuery } from '@/queries/hooks/group';
+import { useCreateGroupQuery } from '@/queries/hooks/group';
 
 import { GroupTypeRadio } from './GroupTypeRadio';
 import * as styles from './index.css';
@@ -34,7 +34,7 @@ export function GroupCreatePage() {
     },
   });
 
-  const { mutateAsync } = useLeaveGroupQuery();
+  const { mutateAsync } = useCreateGroupQuery();
 
   const { openModal } = useModal();
   const navigate = useNavigate();
