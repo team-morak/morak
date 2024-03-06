@@ -102,9 +102,9 @@ export class GroupsController {
   @Get('/:id/apply-list')
   @ApiOperation({
     summary: '그룹 참가 신청 확인',
-    description: '특정 그룹에 가입 신청합니다.',
+    description: '특정 그룹에 가입 신청 현황을 확인합니다.',
   })
-  @ApiParam({ name: 'id', description: '가입 신청할 그룹의 Id' })
+  @ApiParam({ name: 'id', description: '그룹의 Id' })
   @ApiResponse({ status: 201, description: 'Successfully join' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })

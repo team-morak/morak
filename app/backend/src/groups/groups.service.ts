@@ -36,7 +36,6 @@ export class GroupsService {
   async applyGroup(groupId: number, member: Member): Promise<void> {
     const isJoined = await this.groupsRepository.isJoinedGroup(groupId, Number(member.id));
     if (!isJoined) {
-      console.log('asdfasfdqwer');
       return this.groupsRepository.applyGroupJoin(member.id, groupId);
     }
   }
