@@ -55,6 +55,7 @@ model Group {
   title        String @db.VarChar(191)
   groupOwnerId BigInt @map("group_owner_id") @db.BigInt
   groupTypeId  Int    @map("group_type_id") @db.TinyInt
+  deletedAt     DateTime?     @map("deleted_at") @db.DateTime
 
   groups             GroupToUser[]
   mogacos            Mogaco[]
@@ -76,7 +77,7 @@ model GroupAccessCode {
 }
 
 model MembershipRequest {
-  id        BigInt    @id @db.BigInt
+  id        BigInt    @id @db.BigInt @default(autoincrement())
   groupId   BigInt    @map("group_id") @db.BigInt
   userId    BigInt    @map("user_id") @db.BigInt
   status    Int       @db.TinyInt
@@ -87,6 +88,7 @@ model MembershipRequest {
   user  Member @relation(fields: [userId], references: [id])
 
   @@map("membership_request")
+  @@unique([groupId, userId], name: "groupId_userId")
 }
 
 model GroupToUser {

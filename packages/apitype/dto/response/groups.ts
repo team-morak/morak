@@ -29,3 +29,8 @@ export interface ResponseAccessCodeByGroupsDto {
   groupTypeId: number;
   memberCount: number;
 }
+
+export interface ResponseApplyListDto {
+  memberId: Bigint;
+}
+

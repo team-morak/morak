@@ -4,7 +4,7 @@ import { GroupsService } from './groups.service';
 import { GetUser } from 'libs/decorators/get-user.decorator';
 import { AtGuard } from 'src/auth/guards/at.guard';
 import { Group, Member } from '@prisma/client';
-import { AccessCodeByGroupsDto, GroupsWithMemberCountDto, MyGroupsDto } from './dto/groups.dto';
+import { AccessCodeByGroupsDto, GroupApplyListDto, GroupsWithMemberCountDto, MyGroupsDto } from './dto/groups.dto';
 import { MemberInformationDto } from 'src/member/dto/member.dto';
 import { ParticipantResponseDto } from 'src/mogaco-boards/dto/response-participants.dto';
 import { CreateGroupsDto } from './dto/create-groups.dto';
@@ -97,6 +97,51 @@ export class GroupsController {
   @ApiResponse({ status: 404, description: 'Group with id not found' })
   async joinGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
     await this.groupsService.joinGroup(id, member);
+  }
+
+  @Get('/:id/apply-list')
+  @ApiOperation({
+    summary: '그룹 참가 신청 확인',
+    description: '특정 그룹에 가입 신청 현황을 확인합니다.',
+  })
+  @ApiParam({ name: 'id', description: '그룹의 Id' })
+  @ApiResponse({ status: 201, description: 'Successfully join' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
+  async getApplyList(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<GroupApplyListDto[]> {
+    return this.groupsService.getApplyList(id, member);
+  }
+
+  @Post('/:id/apply')
+  @ApiOperation({
+    summary: '그룹 참가 신청',
+    description: '특정 그룹에 가입 신청합니다.',
+  })
+  @ApiParam({ name: 'id', description: '가입 신청할 그룹의 Id' })
+  @ApiResponse({ status: 201, description: 'Successfully join' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
+  async applyGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
+    return this.groupsService.applyGroup(id, member);
+  }
+
+  @Post('/:id/approve')
+  @ApiOperation({
+    summary: '그룹 참가 승인',
+    description: '특정 그룹에 가입 신청을 승인합니다.',
+  })
+  @ApiResponse({ status: 201, description: 'Successfully join' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
+  async approveGroup(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('memberId', ParseIntPipe) memberId: number,
+    @GetUser() member: Member,
+  ): Promise<void> {
+    return this.groupsService.approveGroup(id, memberId, member);
   }
 
   @Delete('/:id/leave')

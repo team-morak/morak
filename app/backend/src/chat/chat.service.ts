@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@morak/chat/src/interface/user.interface';
-import { ChatMessage } from '@morak/chat/src/interface/message.interface';
 import { ChatRepository } from './chat.repository';
 import { ChatMessageDto } from './dto/chat.dto';
 

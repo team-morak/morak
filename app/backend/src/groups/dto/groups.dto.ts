@@ -1,5 +1,6 @@
 import {
   ResponseAccessCodeByGroupsDto,
+  ResponseApplyListDto,
   ResponseGroupsDto,
   ResponseGroupsWithMemberCountDto,
   ResponseMyGroupsDto,
@@ -67,4 +68,9 @@ export class AccessCodeByGroupsDto implements ResponseAccessCodeByGroupsDto {
 
   @ApiProperty({ description: 'member count of the Group', example: '200' })
   memberCount: number;
+}
+
+export class GroupApplyListDto implements ResponseApplyListDto {
+  @ApiProperty({ description: 'ID of the Group', example: '1' })
+  memberId: Bigint;
 }
