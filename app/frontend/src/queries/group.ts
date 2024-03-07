@@ -11,4 +11,12 @@ export const groupKeys = createQueryKeys('group', {
     queryKey: ['myGroup'],
     queryFn: () => group.myGroup(),
   }),
+  groupDetail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => group.groupDetail(id),
+  }),
+  groupMembers: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => group.groupMembers(id),
+  }),
 });
