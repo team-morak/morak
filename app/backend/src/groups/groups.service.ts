@@ -53,6 +53,7 @@ export class GroupsService {
 
   async getMyGroups(member: Member): Promise<(Group & { memberCount: number })[]> {
     return await this.groupsRepository.getMyGroups(member);
+  }
 
   async kickOutMember(id: number, memberId: number, groupOwner: Member): Promise<void> {
     await this.groupsRepository.kickOutMember(id, memberId, groupOwner);
