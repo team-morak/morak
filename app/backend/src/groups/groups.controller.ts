@@ -22,7 +22,7 @@ export class GroupsController {
   })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsWithMemberCountDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
+  async getAllGroups(): Promise<(Group & { memberCount: number })[]> {
     return await this.groupsService.getAllGroups();
   }
 
@@ -33,7 +33,7 @@ export class GroupsController {
   })
   @ApiResponse({ status: 200, description: 'Successfully Check', type: [MyGroupsDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getMyGroups(@GetUser() member: Member): Promise<(Group & { membersCount: number })[]> {
+  async getMyGroups(@GetUser() member: Member): Promise<(Group & { memberCount: number })[]> {
     return await this.groupsService.getMyGroups(member);
   }
 
@@ -45,7 +45,7 @@ export class GroupsController {
   @ApiResponse({ status: 201, description: 'Successfully retrieved group information', type: [AccessCodeByGroupsDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Group not found for the provided access code' })
-  async getGroupByAccessCode(@Query('access_code') accessCode: string): Promise<Group & { membersCount: number }> {
+  async getGroupByAccessCode(@Query('access_code') accessCode: string): Promise<Group & { memberCount: number }> {
     return await this.groupsService.getGroupByAccessCode(accessCode);
   }
 
@@ -57,7 +57,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsWithMemberCountDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Group with id not found' })
-  async getGroups(@Param('id', ParseIntPipe) id: number): Promise<Group & { membersCount: number }> {
+  async getGroups(@Param('id', ParseIntPipe) id: number): Promise<Group & { memberCount: number }> {
     return await this.groupsService.getGroups(id);
   }
 

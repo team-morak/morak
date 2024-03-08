@@ -9,15 +9,15 @@ import { GroupApplyListDto } from './dto/groups.dto';
 export class GroupsService {
   constructor(private groupsRepository: GroupsRepository) {}
 
-  async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
+  async getAllGroups(): Promise<(Group & { memberCount: number })[]> {
     return await this.groupsRepository.getAllGroups();
   }
 
-  async getGroupByAccessCode(accessCode: string): Promise<Group & { membersCount: number }> {
+  async getGroupByAccessCode(accessCode: string): Promise<Group & { memberCount: number }> {
     return await this.groupsRepository.getGroupByAccessCode(accessCode);
   }
 
-  async getGroups(id: number): Promise<Group & { membersCount: number }> {
+  async getGroups(id: number): Promise<Group & { memberCount: number }> {
     return await this.groupsRepository.getGroups(id);
   }
 
@@ -51,9 +51,8 @@ export class GroupsService {
     await this.groupsRepository.leaveGroup(id, member);
   }
 
-  async getMyGroups(member: Member): Promise<(Group & { membersCount: number })[]> {
+  async getMyGroups(member: Member): Promise<(Group & { memberCount: number })[]> {
     return await this.groupsRepository.getMyGroups(member);
-  }
 
   async kickOutMember(id: number, memberId: number, groupOwner: Member): Promise<void> {
     await this.groupsRepository.kickOutMember(id, memberId, groupOwner);
