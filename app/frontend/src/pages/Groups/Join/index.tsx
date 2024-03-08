@@ -32,7 +32,7 @@ export function GroupJoinPage() {
     data: group,
     isLoading: isGroupLoading,
     isSuccess: isGroupSuccess,
-  } = useQuery(queryKeys.group.findByCode(accessCode!));
+  } = useQuery(queryKeys.group.groupInfo(accessCode!));
 
   const goBack = () => navigate(-1);
 

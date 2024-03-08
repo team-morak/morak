@@ -19,8 +19,8 @@ export const groupKeys = createQueryKeys('group', {
     queryKey: [id],
     queryFn: () => group.groupMembers(id),
   }),
-  findByCode: (accessCode: string) => ({
+  groupInfo: (accessCode: string) => ({
     queryKey: [accessCode],
-    queryFn: () => group.findByCode(accessCode),
+    queryFn: () => group.groupInfo(accessCode),
   }),
 });
