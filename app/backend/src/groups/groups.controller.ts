@@ -22,8 +22,8 @@ export class GroupsController {
   })
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsWithMemberCountDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
-    return this.groupsService.getAllGroups();
+  async getAllGroups(): Promise<(Group & { memberCount: number })[]> {
+    return await this.groupsService.getAllGroups();
   }
 
   @Get('/my-groups')
@@ -33,8 +33,8 @@ export class GroupsController {
   })
   @ApiResponse({ status: 200, description: 'Successfully Check', type: [MyGroupsDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getMyGroups(@GetUser() member: Member): Promise<(Group & { membersCount: number })[]> {
-    return this.groupsService.getMyGroups(member);
+  async getMyGroups(@GetUser() member: Member): Promise<(Group & { memberCount: number })[]> {
+    return await this.groupsService.getMyGroups(member);
   }
 
   @Get('/info')
@@ -45,8 +45,8 @@ export class GroupsController {
   @ApiResponse({ status: 201, description: 'Successfully retrieved group information', type: [AccessCodeByGroupsDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Group not found for the provided access code' })
-  async getGroupByAccessCode(@Query('access_code') accessCode: string): Promise<Group & { membersCount: number }> {
-    return this.groupsService.getGroupByAccessCode(accessCode);
+  async getGroupByAccessCode(@Query('access_code') accessCode: string): Promise<Group & { memberCount: number }> {
+    return await this.groupsService.getGroupByAccessCode(accessCode);
   }
 
   @Get('/:id')
@@ -57,8 +57,8 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [GroupsWithMemberCountDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Group with id not found' })
-  async getGroups(@Param('id', ParseIntPipe) id: number): Promise<Group & { membersCount: number }> {
-    return this.groupsService.getGroups(id);
+  async getGroups(@Param('id', ParseIntPipe) id: number): Promise<Group & { memberCount: number }> {
+    return await this.groupsService.getGroups(id);
   }
 
   @Get('/:id/members')
@@ -70,7 +70,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'Successfully retrieved', type: [ParticipantResponseDto] })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async getAllMembersOfGroup(@Param('id', ParseIntPipe) id: number): Promise<MemberInformationDto[]> {
-    return this.groupsService.getAllMembersOfGroup(id);
+    return await this.groupsService.getAllMembersOfGroup(id);
   }
 
   @Post('/')
@@ -82,7 +82,7 @@ export class GroupsController {
   @ApiResponse({ status: 201, description: 'Successfully created' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async createGroups(@Body() createGroupsDto: CreateGroupsDto, @GetUser() member: Member): Promise<void> {
-    return this.groupsService.createGroups(createGroupsDto, member);
+    await this.groupsService.createGroups(createGroupsDto, member);
   }
 
   @Post('/:id/join')
@@ -96,7 +96,7 @@ export class GroupsController {
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Group with id not found' })
   async joinGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
-    return this.groupsService.joinGroup(id, member);
+    await this.groupsService.joinGroup(id, member);
   }
 
   @Delete('/:id/leave')
@@ -109,6 +109,6 @@ export class GroupsController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Group with id not found' })
   async leaveGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
-    return this.groupsService.leaveGroup(id, member);
+    await this.groupsService.leaveGroup(id, member);
   }
 }
