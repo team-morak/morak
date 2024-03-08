@@ -42,12 +42,12 @@ export function Group({
           {owned && <Crown />}
           <div className={styles.title}>{name}</div>
           {closed && <Lock width={24} height={24} fill={grayscale200} />}
+          <div className={styles.membersCount}>
+            <People width={16} height={16} fill={grayscale200} />
+            <span>{membersCount}</span>
+          </div>
         </div>
         <GroupButton id={id} closed={closed} joined={joined} owned={owned} />
-      </div>
-      <div className={styles.membersCount}>
-        <People width={16} height={16} fill={grayscale200} />
-        <span>{membersCount}</span>
       </div>
       {accessCode && (
         <div className={styles.code}>

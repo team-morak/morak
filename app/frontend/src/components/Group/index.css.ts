@@ -19,21 +19,20 @@ export const code = style([
     alignItems: 'center',
     gap: '0.8rem',
     color: grayscale200,
+    whiteSpace: 'nowrap',
   },
 ]);
 
-export const codeString = style({
-  display: 'flex',
-  fontWeight: 'normal',
-  borderLeft: `2px solid ${grayscale100}`,
-  paddingLeft: `0.8rem`,
-
-  '@media': {
-    'screen and (max-width:320px)': {
-      display: 'none',
-    },
+export const codeString = style([
+  sansRegular16,
+  {
+    paddingLeft: `0.8rem`,
+    borderLeft: `2px solid ${grayscale100}`,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
-});
+]);
 
 export const container = style({
   display: 'flex',
@@ -82,6 +81,7 @@ export const membersCount = style([
     alignItems: 'center',
     gap: '0.4rem',
     color: grayscale200,
+    marginLeft: '0.4rem',
   },
 ]);
 
