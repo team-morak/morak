@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class GroupsRepository {
   constructor(private prisma: PrismaService) {}
 
-  private async getGroupMembersCount(groupId: number): Promise<number> {
+  private async getGroupMemberCount(groupId: number): Promise<number> {
     return this.prisma.groupToUser.count({
       where: {
         groupId: groupId,
@@ -25,18 +25,18 @@ export class GroupsRepository {
     return groupAccessCode.accessCode;
   }
 
-  async getAllGroups(): Promise<(Group & { membersCount: number })[]> {
+  async getAllGroups(): Promise<(Group & { memberCount: number })[]> {
     const groups = await this.prisma.group.findMany();
 
     const groupPromises = groups.map(async (group) => {
-      const membersCount = await this.getGroupMembersCount(Number(group.id));
-      return { ...group, membersCount };
+      const memberCount = await this.getGroupMemberCount(Number(group.id));
+      return { ...group, memberCount };
     });
 
     return Promise.all(groupPromises);
   }
 
-  async getGroupByAccessCode(accessCode: string): Promise<Group & { membersCount: number }> {
+  async getGroupByAccessCode(accessCode: string): Promise<Group & { memberCount: number }> {
     const groupAccessCode = await this.prisma.groupAccessCode.findUnique({
       where: {
         accessCode: accessCode,
@@ -50,14 +50,14 @@ export class GroupsRepository {
       throw new NotFoundException('Group not found for the provided access code');
     }
 
-    const membersCount = await this.getGroupMembersCount(Number(groupAccessCode.groupId));
+    const memberCount = await this.getGroupMemberCount(Number(groupAccessCode.groupId));
     return {
       ...groupAccessCode.groupAccessCodes,
-      membersCount,
+      memberCount,
     };
   }
 
-  async getGroups(id: number): Promise<Group & { membersCount: number }> {
+  async getGroups(id: number): Promise<Group & { memberCount: number }> {
     const group = await this.prisma.group.findUnique({
       where: {
         id: id,
@@ -68,8 +68,8 @@ export class GroupsRepository {
       throw new NotFoundException(`Group with ID ${id} not found.`);
     }
 
-    const membersCount = await this.getGroupMembersCount(id);
-    return { ...group, membersCount };
+    const memberCount = await this.getGroupMemberCount(id);
+    return { ...group, memberCount };
   }
 
   async getAllMembersOfGroup(groupId: number): Promise<MemberInformationDto[]> {
@@ -176,7 +176,7 @@ export class GroupsRepository {
     });
   }
 
-  async getMyGroups(member: Member): Promise<(Group & { membersCount: number; accessCode: string })[]> {
+  async getMyGroups(member: Member): Promise<(Group & { memberCount: number; accessCode: string })[]> {
     const groupToUsers = await this.prisma.groupToUser.findMany({
       where: { userId: member.id },
       include: {
@@ -184,13 +184,13 @@ export class GroupsRepository {
       },
     });
 
-    const groupsWithMembersCount = groupToUsers.map(async (groupToUser) => {
-      const membersCount = await this.getGroupMembersCount(Number(groupToUser.groupId));
+    const groupsWithMemberCount = groupToUsers.map(async (groupToUser) => {
+      const memberCount = await this.getGroupMemberCount(Number(groupToUser.groupId));
       const accessCode = await this.getGroupAccessCode(Number(groupToUser.groupId));
-      return { ...groupToUser.group, membersCount, accessCode };
+      return { ...groupToUser.group, memberCount, accessCode };
     });
 
-    return Promise.all(groupsWithMembersCount);
+    return Promise.all(groupsWithMemberCount);
   }
 
   async isJoinedGroup(groupId: number, memberId: number): Promise<boolean> {
