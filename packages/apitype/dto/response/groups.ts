@@ -22,10 +22,15 @@ export interface ResponseMyGroupsDto {
   accessCode: string;
 }
 
-export interface ResponseAccesCodeByGroupsDto {
+export interface ResponseAccessCodeByGroupsDto {
   id: Bigint;
   title: string;
   groupOwnerId: Bigint;
   groupTypeId: number;
   memberCount: number;
 }
+
+export interface ResponseApplyListDto {
+  memberId: Bigint;
+}
+

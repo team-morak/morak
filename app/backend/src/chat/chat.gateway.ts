@@ -61,7 +61,7 @@ class ChatGateway {
     }
   }
 
-  afterInit(server: Server) {
+  afterInit() {
     this.logger.log('WebSocket server initialized ✅');
   }
 }

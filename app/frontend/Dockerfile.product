@@ -28,6 +28,7 @@ RUN echo "VITE_SOCKET_URL_PATH=${VITE_SOCKET_URL_PATH}" >> .env.product
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
+RUN npm install -g npm@10.4.0
 RUN npm ci
  
 # Build the project

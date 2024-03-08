@@ -1,5 +1,6 @@
 import {
-  ResponseAccesCodeByGroupsDto,
+  ResponseAccessCodeByGroupsDto,
+  ResponseApplyListDto,
   ResponseGroupsDto,
   ResponseGroupsWithMemberCountDto,
   ResponseMyGroupsDto,
@@ -52,7 +53,7 @@ export class MyGroupsDto implements ResponseMyGroupsDto {
   accessCode: string;
 }
 
-export class AccessCodeByGroupsDto implements ResponseAccesCodeByGroupsDto {
+export class AccessCodeByGroupsDto implements ResponseAccessCodeByGroupsDto {
   @ApiProperty({ description: 'ID of the Group', example: '1' })
   id: Bigint;
 
@@ -67,4 +68,9 @@ export class AccessCodeByGroupsDto implements ResponseAccesCodeByGroupsDto {
 
   @ApiProperty({ description: 'member count of the Group', example: '200' })
   memberCount: number;
+}
+
+export class GroupApplyListDto implements ResponseApplyListDto {
+  @ApiProperty({ description: 'ID of the Group', example: '1' })
+  memberId: Bigint;
 }

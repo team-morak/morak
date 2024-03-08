@@ -38,13 +38,14 @@ export function MyGroup() {
         {isSuccess &&
           myGroup?.length > 0 &&
           myGroup.map((group) => (
-            <Group
-              key={group.id}
-              id={group.id}
-              name={group.title}
-              joined
-              closed={group.groupTypeId === 1}
-            />
+            <NavLink key={group.id} to={`/group/${group.id}`}>
+              <Group
+                id={group.id}
+                name={group.title}
+                joined
+                closed={group.groupTypeId === 1}
+              />
+            </NavLink>
           ))}
         {isSuccess && myGroup.length === 0 && (
           <Error message="현재 속한 그룹이 없습니다. 그룹에 참여해 주세요." />
