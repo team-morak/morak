@@ -34,7 +34,7 @@ export class MogacoService {
   }
 
   async deleteMogaco(id: number, member: Member): Promise<void> {
-    this.mogacoRepository.deleteMogaco(id, member);
+    await this.mogacoRepository.deleteMogaco(id, member);
   }
 
   async updateMogaco(id: number, updateMogacoDto: CreateMogacoDto, member: Member) {
@@ -50,6 +50,6 @@ export class MogacoService {
   }
 
   async cancelMogacoJoin(id: number, member: Member): Promise<void> {
-    this.mogacoRepository.cancelMogacoJoin(id, member);
+    await this.mogacoRepository.cancelMogacoJoin(id, member);
   }
 }
