@@ -144,6 +144,20 @@ export class GroupsController {
     return this.groupsService.approveGroup(id, memberId, member);
   }
 
+  @Delete('/:id')
+  @ApiOperation({
+    summary: '그룹 삭제',
+    description: '특정 그룹을 삭제합니다.',
+  })
+  @ApiParam({ name: 'id', description: '삭제할 그룹의 Id' })
+  @ApiResponse({ status: 200, description: 'Successfully deleted the group' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'Group with id not found' })
+  async deleteGroup(@Param('id', ParseIntPipe) id: number, @GetUser() member: Member): Promise<void> {
+    await this.groupsService.deleteGroup(id, member);
+  }
+
   @Delete('/:id/leave')
   @ApiOperation({
     summary: '그룹 참가 취소',

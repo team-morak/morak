@@ -144,6 +144,32 @@ export class GroupsRepository {
     });
   }
 
+  async deleteGroup(groupId: number, member: Member): Promise<void> {
+    const group = await this.prisma.group.findUnique({
+      where: {
+        id: groupId,
+      },
+    });
+
+    if (!group) {
+      throw new NotFoundException(`Group with id ${groupId} not found`);
+    }
+
+    const isGroupOwner = await this.isGroupOwner(groupId, Number(member.id));
+    if (!isGroupOwner) {
+      throw new ForbiddenException('Only group owners can delete the group');
+    }
+
+    await this.prisma.group.update({
+      where: {
+        id: groupId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+  }
+
   async leaveGroup(groupId: number, member: Member): Promise<void> {
     const group = await this.prisma.group.findUnique({
       where: { id: groupId },
