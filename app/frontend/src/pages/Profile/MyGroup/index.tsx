@@ -42,7 +42,7 @@ export function MyGroup() {
               key={group.id}
               id={group.id}
               name={group.title}
-              membersCount={group.membersCount}
+              memberCount={group.memberCount}
               accessCode={group.accessCode}
               joined
               closed={group.groupTypeId === 0}

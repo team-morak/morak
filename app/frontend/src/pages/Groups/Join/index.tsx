@@ -72,7 +72,7 @@ export function GroupJoinPage() {
         </div>
         <span className={styles.participants}>
           <People width={24} height={24} fill={grayscale200} />
-          {group.membersCount}
+          {group.memberCount}
         </span>
       </div>
       <div className={styles.form}>

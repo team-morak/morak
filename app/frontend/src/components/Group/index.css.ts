@@ -74,7 +74,7 @@ export const detail = style({
   gap: '0.4rem',
 });
 
-export const membersCount = style([
+export const memberCount = style([
   sansRegular16,
   {
     display: 'flex',

@@ -12,7 +12,7 @@ const { grayscale200 } = vars.color;
 type GroupProps = {
   id: string;
   name: string;
-  membersCount: number;
+  memberCount: number;
   accessCode?: string;
   closed: boolean;
   joined: boolean;
@@ -21,7 +21,7 @@ type GroupProps = {
 export function Group({
   id,
   name,
-  membersCount,
+  memberCount,
   accessCode,
   closed,
   joined,
@@ -42,9 +42,9 @@ export function Group({
           {owned && <Crown />}
           <div className={styles.title}>{name}</div>
           {closed && <Lock width={24} height={24} fill={grayscale200} />}
-          <div className={styles.membersCount}>
+          <div className={styles.memberCount}>
             <People width={16} height={16} fill={grayscale200} />
-            <span>{membersCount}</span>
+            <span>{memberCount}</span>
           </div>
         </div>
         <GroupButton id={id} closed={closed} joined={joined} owned={owned} />
