@@ -3,8 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/queries';
 import { useJoinGroupQuery, useLeaveGroupQuery } from '@/queries/hooks/group';
 
-import { Modal } from '../../Modal';
-
 export const useGroupJoinAndLeave = () => {
   const { mutate: leaveGroup } = useLeaveGroupQuery();
   const { mutate: joinGroup } = useJoinGroupQuery();
