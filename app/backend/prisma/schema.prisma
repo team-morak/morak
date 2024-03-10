@@ -89,7 +89,6 @@ model MembershipRequest {
 
   @@unique([groupId, userId], name: "groupId_userId")
   @@map("membership_request")
-  @@unique([groupId, userId], name: "groupId_userId")
 }
 
 model GroupToUser {
