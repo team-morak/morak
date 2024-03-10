@@ -7,7 +7,6 @@ const {
   grayscale50,
   grayscale100,
   grayscale200,
-  grayscale400,
   grayscaleWhite,
   grayscaleBlack,
 } = vars.color;
@@ -18,8 +17,20 @@ export const code = style([
     display: 'flex',
     flexGrow: 1,
     alignItems: 'center',
-    gap: '0.4rem',
+    gap: '0.8rem',
     color: grayscale200,
+    whiteSpace: 'nowrap',
+  },
+]);
+
+export const codeString = style([
+  sansRegular16,
+  {
+    paddingLeft: `0.8rem`,
+    borderLeft: `2px solid ${grayscale100}`,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 ]);
 
@@ -56,16 +67,6 @@ export const copyButton = style({
   },
 });
 
-export const count = style([
-  sansRegular16,
-  {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.4rem',
-    color: grayscale400,
-  },
-]);
-
 export const detail = style({
   display: 'flex',
   justifyContent: 'space-between',
@@ -73,19 +74,17 @@ export const detail = style({
   gap: '0.4rem',
 });
 
-export const groupCode = style({
-  marginLeft: '0.4rem',
-});
-
-export const mobile = style({
-  display: 'none',
-
-  '@media': {
-    'screen and (max-width:768px)': {
-      display: 'flex',
-    },
+export const memberCount = style([
+  sansRegular16,
+  {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.4rem',
+    color: grayscale200,
+    marginLeft: '0.4rem',
   },
-});
+]);
+
 export const nameWrapper = style({
   display: 'flex',
   alignItems: 'center',

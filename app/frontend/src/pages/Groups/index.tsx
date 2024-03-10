@@ -18,7 +18,7 @@ export function Groups() {
     staleTime: Infinity,
   });
 
-  const joinedGroup = myGroup?.[0];
+  const joinedGroups = myGroup?.map((group) => group.id) || [];
 
   return (
     <div className={styles.container}>
@@ -33,10 +33,11 @@ export function Groups() {
           groupList?.map((group) => (
             <Group
               key={group.id}
-              name={group.title}
               id={group.id}
-              joined={group.id === joinedGroup?.id}
-              closed={group.groupTypeId === 1}
+              name={group.title}
+              memberCount={group.memberCount}
+              joined={joinedGroups.includes(group.id)}
+              closed={group.groupTypeId === 0}
             />
           ))
         )}
