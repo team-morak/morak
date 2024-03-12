@@ -47,6 +47,10 @@ export class GroupsService {
     }
   }
 
+  async deleteGroup(groupId: number, member: Member): Promise<void> {
+    await this.groupsRepository.deleteGroup(groupId, member);
+  }
+
   async leaveGroup(id: number, member: Member): Promise<void> {
     await this.groupsRepository.leaveGroup(id, member);
   }
