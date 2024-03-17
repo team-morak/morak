@@ -62,6 +62,13 @@ export class GroupsRepository {
       where: {
         id: id,
       },
+      include: {
+        member: {
+          select: {
+            providerId: true,
+          },
+        },
+      },
     });
 
     if (!group) {
@@ -69,7 +76,10 @@ export class GroupsRepository {
     }
 
     const memberCount = await this.getGroupMemberCount(id);
-    return { ...group, memberCount };
+    return {
+      ...group,
+      memberCount,
+    };
   }
 
   async getAllMembersOfGroup(groupId: number): Promise<MemberInformationDto[]> {
