@@ -176,7 +176,7 @@ export class GroupsController {
     summary: '멤버 강제퇴장',
     description: '특정 그룹에서 멤버를 강제로 퇴장시킵니다.',
   })
-  @ApiParam({ name: 'groupId', description: '멤버를 강제로 퇴장시킬 그룹의 Id' })
+  @ApiParam({ name: 'id', description: '멤버를 강제로 퇴장시킬 그룹의 Id' })
   @ApiParam({ name: 'memberId', description: '강제로 퇴장시킬 멤버의 Id' })
   @ApiResponse({ status: 200, description: 'Successfully kicked out the member' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
