@@ -11,6 +11,10 @@ export interface ResponseGroupsWithMemberCountDto {
   id: Bigint;
   title: string;
   memberCount: number;
+  groupOwnerId: Bigint;
+  groupTypeId: number;
+  deletedAt: Date;
+  ownerProviderId: string;
 }
 
 export interface ResponseMyGroupsDto {

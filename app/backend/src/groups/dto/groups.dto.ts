@@ -29,8 +29,20 @@ export class GroupsWithMemberCountDto implements ResponseGroupsWithMemberCountDt
   @ApiProperty({ description: 'title of the Group', example: '부스트캠프 웹・모바일 8기' })
   title: string;
 
+  @ApiProperty({ description: 'ID of the Group Owner', example: '1' })
+  groupOwnerId: Bigint;
+
+  @ApiProperty({ description: 'ID of the Group Type', example: '1' })
+  groupTypeId: number;
+
+  @ApiProperty({ description: 'Date of deletion of the Group', example: null })
+  deletedAt: Date;
+
   @ApiProperty({ description: 'member count of the Group', example: '200' })
   memberCount: number;
+
+  @ApiProperty({ description: 'Provider ID of the Group Owner', example: '117187214221556274884' })
+  ownerProviderId: string;
 }
 
 export class MyGroupsDto implements ResponseMyGroupsDto {
@@ -45,6 +57,9 @@ export class MyGroupsDto implements ResponseMyGroupsDto {
 
   @ApiProperty({ description: 'Group Type Id', example: '1' })
   groupTypeId: number;
+
+  @ApiProperty({ description: 'Date of deletion of the Group', example: null })
+  deletedAt: Date;
 
   @ApiProperty({ description: 'member count of the Group', example: '200' })
   memberCount: number;
@@ -65,6 +80,9 @@ export class AccessCodeByGroupsDto implements ResponseAccessCodeByGroupsDto {
 
   @ApiProperty({ description: 'Group Type Id', example: '1' })
   groupTypeId: number;
+
+  @ApiProperty({ description: 'Date of deletion of the Group', example: null })
+  deletedAt: Date;
 
   @ApiProperty({ description: 'member count of the Group', example: '200' })
   memberCount: number;
