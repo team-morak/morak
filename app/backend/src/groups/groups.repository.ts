@@ -83,6 +83,7 @@ export class GroupsRepository {
     });
 
     return groupToUsers.map((groupToUser) => ({
+      userId: groupToUser.user.id,
       providerId: groupToUser.user.providerId,
       email: groupToUser.user.email,
       nickname: groupToUser.user.nickname,
