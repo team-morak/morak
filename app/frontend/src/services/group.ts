@@ -49,4 +49,8 @@ export const group = {
     morakAPI.post<null>(`${group.endPoint.default}/${id}/join`),
   leave: async ({ id }: Pick<ResponseGroupsDto, 'id'>) =>
     morakAPI.delete<null>(`${group.endPoint.default}/${id}/leave`),
+  kick: async ({ id, memberId }: { id: string; memberId: string }) =>
+    morakAPI.delete<null>(`${group.endPoint.default}/${id}/kick/${memberId}`),
+  delete: async (id: string) =>
+    morakAPI.delete<null>(`${group.endPoint.default}/${id}`),
 };
