@@ -1,5 +1,6 @@
 import { Button } from '@morak/ui';
 
+import { useGroupApply } from './hooks/useGroupApply';
 import { useGroupJoinAndLeave } from './hooks/useGroupJoinLeave';
 import { useGroupModal } from './hooks/useGroupModal';
 
@@ -12,6 +13,7 @@ type GroupButtonProps = {
 
 export function GroupButton({ id, closed, joined, owned }: GroupButtonProps) {
   const { handleLeave, handleJoin } = useGroupJoinAndLeave();
+  const { handleApply } = useGroupApply();
   const { openLeaveModal, openJoinModal, openApplyModal } = useGroupModal();
 
   const onClickLeave = () =>
@@ -20,9 +22,7 @@ export function GroupButton({ id, closed, joined, owned }: GroupButtonProps) {
     openJoinModal({ onClickConfirm: () => handleJoin(id) });
   const onClickApply = () =>
     openApplyModal({
-      onClickConfirm: () => {
-        // 가입 신청 API 연동
-      },
+      onClickConfirm: () => handleApply(id),
     });
 
   return (
