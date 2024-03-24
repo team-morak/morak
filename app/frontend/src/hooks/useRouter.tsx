@@ -62,7 +62,7 @@ export const useRouter = () =>
           element: <GroupJoinPage />,
         },
         {
-          path: 'group/:id',
+          path: 'group/:groupId',
           element: <GroupDetailPage />,
         },
       ],

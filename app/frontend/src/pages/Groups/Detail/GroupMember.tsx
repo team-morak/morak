@@ -1,3 +1,4 @@
+import { ReactComponent as Crown } from '@/assets/icons/crown.svg';
 import { ReactComponent as Delete } from '@/assets/icons/delete.svg';
 import { UserChip, Modal } from '@/components';
 import { useModal } from '@/hooks';
@@ -10,7 +11,8 @@ type GroupMemberProps = {
   memberId: string;
   userName?: string;
   profileSrc?: string;
-  isOwner?: boolean;
+  groupOwner?: boolean;
+  kickButton?: boolean;
 };
 
 export function GroupMember({
@@ -18,7 +20,8 @@ export function GroupMember({
   memberId,
   userName,
   profileSrc,
-  isOwner = false,
+  groupOwner = false,
+  kickButton = false,
 }: GroupMemberProps) {
   const { openModal } = useModal();
   const { mutate: kickMember } = useKickMemberQuery();
@@ -42,7 +45,8 @@ export function GroupMember({
   return (
     <div className={styles.groupMember}>
       <UserChip username={userName} profileSrc={profileSrc} />
-      {isOwner && (
+      {groupOwner && <Crown />}
+      {!groupOwner && kickButton && (
         <button type="button" onClick={onClickKick}>
           <Delete className={styles.deleteButton} />
         </button>
