@@ -47,6 +47,7 @@ export function MyGroup() {
                 accessCode={group.accessCode}
                 joined
                 closed={group.groupTypeId === 0}
+                deleted={group.deletedAt !== null}
               />
             </NavLink>
           ))}

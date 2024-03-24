@@ -17,6 +17,7 @@ type GroupProps = {
   closed: boolean;
   joined: boolean;
   owned?: boolean;
+  deleted: boolean;
 };
 export function Group({
   id,
@@ -26,6 +27,7 @@ export function Group({
   closed,
   joined,
   owned = false,
+  deleted,
 }: GroupProps) {
   const onClickCopy = async () => {
     if (accessCode) {
@@ -47,7 +49,13 @@ export function Group({
             <span>{memberCount}</span>
           </div>
         </div>
-        <GroupButton id={id} closed={closed} joined={joined} owned={owned} />
+        <GroupButton
+          id={id}
+          closed={closed}
+          joined={joined}
+          owned={owned}
+          deleted={deleted}
+        />
       </div>
       {accessCode && (
         <div className={styles.code}>

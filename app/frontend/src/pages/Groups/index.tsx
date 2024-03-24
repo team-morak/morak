@@ -38,6 +38,7 @@ export function Groups() {
               memberCount={group.memberCount}
               joined={joinedGroups.includes(group.id)}
               closed={group.groupTypeId === 0}
+              deleted={group.deletedAt !== null}
             />
           ))
         )}
