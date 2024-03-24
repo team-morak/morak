@@ -17,6 +17,18 @@ export interface ResponseGroupsWithMemberCountDto {
   ownerProviderId: string;
 }
 
+export interface ResponseGroupsDetailDto {
+  id: Bigint;
+  title: string;
+  memberCount: number;
+  groupOwnerId: Bigint;
+  groupTypeId: number;
+  deletedAt: Date;
+  member: {
+    providerId: string;
+  };
+  accessCode: string;
+}
 export interface ResponseMyGroupsDto {
   id: Bigint;
   title: string;
@@ -37,4 +49,3 @@ export interface ResponseAccessCodeByGroupsDto {
 export interface ResponseApplyListDto {
   memberId: Bigint;
 }
-

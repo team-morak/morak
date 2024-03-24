@@ -48,5 +48,24 @@ export const useGroupModal = () => {
     );
   };
 
-  return { openLeaveModal, openJoinModal, openApplyModal };
+  const openDeleteGroupModal = ({
+    onClickConfirm,
+  }: {
+    onClickConfirm: () => void;
+  }) => {
+    openModal(
+      <Modal
+        title="그룹을 삭제하시겠습니까?"
+        buttonType="double"
+        onClickConfirm={onClickConfirm}
+      />,
+    );
+  };
+
+  return {
+    openLeaveModal,
+    openJoinModal,
+    openApplyModal,
+    openDeleteGroupModal,
+  };
 };

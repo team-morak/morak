@@ -2,7 +2,7 @@ import {
   ResponseGroupsDto,
   ResponseMemberDto,
   ResponseAccessCodeByGroupsDto,
-  ResponseMyGroupsDto,
+  ResponseGroupsDetailDto,
 } from '@morak/apitype';
 
 import { morakAPI } from './morakAPI';
@@ -13,19 +13,19 @@ export const group = {
   },
 
   all: async () => {
-    const { data } = await morakAPI.get<ResponseAccessCodeByGroupsDto[]>(
+    const { data } = await morakAPI.get<ResponseGroupsDetailDto[]>(
       group.endPoint.default,
     );
     return data;
   },
   myGroup: async () => {
-    const { data } = await morakAPI.get<ResponseMyGroupsDto[]>(
+    const { data } = await morakAPI.get<ResponseGroupsDetailDto[]>(
       `${group.endPoint.default}/my-groups`,
     );
     return data;
   },
   groupDetail: async (id: string) => {
-    const { data } = await morakAPI.get<ResponseAccessCodeByGroupsDto>(
+    const { data } = await morakAPI.get<ResponseGroupsDetailDto>(
       `${group.endPoint.default}/${id}`,
     );
     return data;
@@ -49,4 +49,8 @@ export const group = {
     morakAPI.post<null>(`${group.endPoint.default}/${id}/join`),
   leave: async ({ id }: Pick<ResponseGroupsDto, 'id'>) =>
     morakAPI.delete<null>(`${group.endPoint.default}/${id}/leave`),
+  kick: async ({ id, memberId }: { id: string; memberId: string }) =>
+    morakAPI.delete<null>(`${group.endPoint.default}/${id}/kick/${memberId}`),
+  delete: async (id: string) =>
+    morakAPI.delete<null>(`${group.endPoint.default}/${id}`),
 };

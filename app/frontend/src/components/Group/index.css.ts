@@ -11,6 +11,12 @@ const {
   grayscaleBlack,
 } = vars.color;
 
+export const butonWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.6rem',
+});
+
 export const code = style([
   sansBold16,
   {
